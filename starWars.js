@@ -1,6 +1,6 @@
 // we will make a simple star wars api, this will take in the info and we will use all and interlock them. we can possibly learn classes in this mini project aswell.
 
-//
+// C:\Users\kalob\OneDrive\Desktop\starWarsApi\starWars.js
 
 class PersonOfStarWars {
     constructor (height, personality, num1, num2) {
