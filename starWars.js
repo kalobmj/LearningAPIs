@@ -19,4 +19,23 @@ class PersonOfStarWars {
 
 const Anakin = new PersonOfStarWars(172, 'happy', 10, 10);
 
+const apiCallRoot = 'https://swapi.dev/api/';
+
+const apiStarships9 = `${apiCallRoot}starships/9/`;
+console.log({apiStarships9})
+
+fetch(apiStarships9)
+    .then(res => res.json())
+    .then(data => {
+        console.log({data})
+        console.log('first data element: ', data[0])
+        console.log(data.name)
+        console.log(data.MGLT)
+        console.log(data.crew)
+        for (const props in data) {
+            console.log(props)
+        }
+    })
+
+
 
