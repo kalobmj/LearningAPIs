@@ -1,0 +1,17 @@
+need to:
+
+set up express js server
+use either mongodb or google firebase database to store the data (choose one or try both)
+
+call apis and learn how to request them
+    process them when u get them
+        and learn how to use them
+            the methods for them
+
+store the data in localstorage aswell
+    also be able to fetch data from localstorage
+        and check if we have data from api in localstorage if not dont fetch it
+
+can have a simple backend with a header and middle section for user to input small data
+
+we are learning about apis in the way that we will use in our price project

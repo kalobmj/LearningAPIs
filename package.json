@@ -1,0 +1,23 @@
+{
+  "name": "starwarsapi",
+  "version": "1.0.0",
+  "main": "apitest1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalobmj/starWarsApi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kalobmj/starWarsApi/issues"
+  },
+  "homepage": "https://github.com/kalobmj/starWarsApi#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
