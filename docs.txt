@@ -15,3 +15,7 @@ store the data in localstorage aswell
 can have a simple backend with a header and middle section for user to input small data
 
 we are learning about apis in the way that we will use in our price project
+
+2/24
+    have basically have our express js backend server set up but its barebones.
+        i need to figure out how to call the api from the backend server, request it on the front end and get that data to the front end and save that data somewhere

@@ -12,17 +12,19 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.get('/newRoute', (req, res) => {
+// app get root
+// app.get('/', (req, res) => {
 
+// })
+
+app.get('/newRoute', (req, res) => {
     let greetings = [
         'hello there!',
         'hi there!',
         'welcome there!'
-    ]
-
-    const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)]
-
-    res.send(randomGreeting)
+    ];
+    const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+    res.send(randomGreeting);
 })
 
 

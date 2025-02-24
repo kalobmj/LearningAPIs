@@ -1,0 +1,13 @@
+start frontend UI
+
+from [frontend]: check localstorage
+    if data exists -> use it
+    if no data -> request from backend
+
+from [backend]: check mongoDB 
+    if data exists -> return it
+    if no data -> fetch from external api
+        save fetched data in mongoDB
+            send data to frontend
+
+end frontend UI
