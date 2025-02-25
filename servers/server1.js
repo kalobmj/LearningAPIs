@@ -9,6 +9,7 @@ const port = 3000
 // app.use(express.static("public"))
 
 app.get('/', (req, res) => {
+    console.log('app get root /')
     res.send('Hello World!')
 })
 
@@ -18,12 +19,19 @@ app.get('/', (req, res) => {
 // })
 
 app.get('/newRoute', (req, res) => {
+    console.log('app get /newRoute')
     let greetings = [
         'hello there!',
         'hi there!',
         'welcome there!'
     ];
-    const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+
+    const randomNum = Math.floor(Math.random() * greetings.length);
+    console.log({randomNum})
+
+    const randomGreeting = greetings[randomNum];
+    console.log('Your random greeting is: ', randomGreeting)
+    
     res.send(randomGreeting);
 })
 
