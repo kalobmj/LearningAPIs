@@ -18,3 +18,9 @@ if (localStorage.getItem('data') != null) {
 } else {
     console.error(err => err)
 }
+
+localStorage.setItem('star-data', 123)
+
+const starDataFromLocal = localStorage.getItem('star-data')
+
+console.log({starDataFromLocal})
