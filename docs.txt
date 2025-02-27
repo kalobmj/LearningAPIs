@@ -19,3 +19,7 @@ we are learning about apis in the way that we will use in our price project
 2/24
     have basically have our express js backend server set up but its barebones.
         i need to figure out how to call the api from the backend server, request it on the front end and get that data to the front end and save that data somewhere
+
+2/27
+    we kinda got our backend working so it fetchs the data from api. then we call it on front end and console log it. we can now work with this data. we also can store it in localstorage and check if it exists, if not call the api from the backend.
+        next is to work with it more. then set up mongodb and have our front end check our localstorage first, if not there check the mongodb database, then if not we can fetch from our backend, where the api is called.

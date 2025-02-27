@@ -38,7 +38,7 @@ app.get('/newRoute', (req, res) => {
         
 //     })
 
-app.get('/api', async (req,res) => {
+app.get('/api', cors(), async (req,res) => {
     // code here
     // res.send(data) -> this returns data to frontend
     const starwarsFilms = 'https://swapi.dev/api/films/';
@@ -46,6 +46,7 @@ app.get('/api', async (req,res) => {
     fetch(starwarsFilms)
     .then(res => res.json())
     .then(data => {
+        console.log({data})
         res.send(data)
     })
 

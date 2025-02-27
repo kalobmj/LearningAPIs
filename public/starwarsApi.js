@@ -69,7 +69,7 @@ fetch(starwarsFilms)
 
 console.log('first getting filmData: ', localStorage.getItem('filmData'))
 
-localStorage.clear('filmData')
+localStorage.removeItem('filmData')
 
 console.log('filmData should be cleared after this', localStorage.getItem('filmData'))
 
@@ -81,12 +81,25 @@ console.log('test')
 
 console.log({starwarsFilmDataLocal})
 
+// localStorage.removeItem(itemhere) -> removes single item 
+// localStorage.clear() -> removes all data 
+
+localStorage.removeItem('filmData')
+
+console.log('our star wars filmData should be test here: ', starwarsFilmDataLocal)
+console.log('our star wars filmData should be null here: ', localStorage.getItem('filmData'))
+
 // check if we have film data, if not req from backend
-if (starDataFromLocal === null) {
+if (localStorage.getItem('filmData') === null) {
     // fetch
 
-    fetch("/api")
-    .then(res => console.log(res))
+    fetch('http://localhost:3000/api')
+    .then(res => res.json())
+    .then(data => {
+        console.log({data})
+        console.log('data.results: ', data.results)
+    })
+    .catch(err => console.error('Error: ', err))
 
 
 } else {
