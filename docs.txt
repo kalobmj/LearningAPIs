@@ -23,3 +23,6 @@ we are learning about apis in the way that we will use in our price project
 2/27
     we kinda got our backend working so it fetchs the data from api. then we call it on front end and console log it. we can now work with this data. we also can store it in localstorage and check if it exists, if not call the api from the backend.
         next is to work with it more. then set up mongodb and have our front end check our localstorage first, if not there check the mongodb database, then if not we can fetch from our backend, where the api is called.
+
+2/28 got most of data calls working. just need to learn how to work with that data and work on database.
+    need to fix text wrapping on middle text

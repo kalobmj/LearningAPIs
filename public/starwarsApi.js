@@ -67,28 +67,6 @@ fetch(starwarsFilms)
 // JSON.parse() -> parses json string and converts to JSON
 // JSON.stringify -> converts JS object to a single string
 
-console.log('first getting filmData: ', localStorage.getItem('filmData'))
-
-localStorage.removeItem('filmData')
-
-console.log('filmData should be cleared after this', localStorage.getItem('filmData'))
-
-localStorage.setItem('filmData', 'test')
-
-const starwarsFilmDataLocal = localStorage.getItem('filmData')
-
-console.log('test')
-
-console.log({ starwarsFilmDataLocal })
-
-// localStorage.removeItem(itemhere) -> removes single item 
-// localStorage.clear() -> removes all data 
-
-localStorage.removeItem('filmData')
-
-console.log('our star wars filmData should be test here: ', starwarsFilmDataLocal)
-console.log('our star wars filmData should be null here: ', localStorage.getItem('filmData'))
-
 // check if we have film data, if not req from backend
 // if (localStorage.getItem('filmData') === null) {
 //     // fetch
@@ -176,10 +154,19 @@ console.log('our star wars filmData should be null here: ', localStorage.getItem
 // /species/:id/ -- get a specific species resource
 // /species/schema/ -- view the JSON schema for this resource
 
+// initial setting of data to undefined. commenting this out will leave the data in our localStorage
+// localStorage.setItem('filmsData', undefined) // value passed converts to string: undefined => 'undefined'
+// localStorage.setItem('peopleData', undefined) // value passed converts to string: undefined => 'undefined'
+// localStorage.setItem('planetsData', undefined) // value passed converts to string: undefined => 'undefined'
+// localStorage.setItem('speciesData', undefined) // value passed converts to string: undefined => 'undefined'
+// localStorage.setItem('starshipsData', undefined) // value passed converts to string: undefined => 'undefined'
+// localStorage.setItem('vehiclesData', undefined) // value passed converts to string: undefined => 'undefined'
+
+console.log(localStorage.getItem('filmsData') === 'undefined')
 
 // function to fetch any data ex: 'films'
-const fetchData = (reqData) => {
-    if (localStorage.getItem(reqData) === null) {
+const fetchData = async (reqData) => {
+    if (localStorage.getItem(`${reqData}Data`) === 'undefined' || null) {
         return fetch(`http://localhost:3000/api/${reqData}`)
             .then(res => {
                 if (!res.ok) {
@@ -189,11 +176,13 @@ const fetchData = (reqData) => {
             })
             .then(data => {
                 console.log(`fetched reqData: ${reqData} `, data)
+                localStorage.setItem(`${reqData}Data`, JSON.stringify(data.results))
                 return data.results;
             })
             .catch(err => console.error(`Error fetching data: ${reqData}: `, err))
     } else {
         console.log(`we have our data: ${reqData} in localStorage :)`)
+        return JSON.parse(localStorage.getItem(`${reqData}Data`))
     }
 };
 
@@ -208,18 +197,18 @@ fetchData('vehicles');
 // function to display info about a random planet
 async function displayRandomPlanet() {
     let planetData;
-    fetchData('planets')
+    await fetchData('planets')
         .then(pData => {
-            console.log({pData});
+            console.log({ pData });
             planetData = pData;
             // document.getElementById('res-display').innerText = planetData[Math.floor(Math.random() * planetData.length)].name;
             const pDataKeyValuePairs = Object.entries(planetData[Math.floor(Math.random() * planetData.length)]);
-            console.log({pDataKeyValuePairs})
+            console.log({ pDataKeyValuePairs })
             let futureInnerText = '';
             for (const attribute of pDataKeyValuePairs) {
                 futureInnerText += `\n${attribute[0]}: ${attribute[1]}`
             }
-            console.log({futureInnerText});
+            console.log({ futureInnerText });
             document.getElementById('res-display').innerText = futureInnerText;
         })
         .catch(err => console.error('Error fetching planetData: ', err));
@@ -230,12 +219,12 @@ displayRandomPlanet();
 
 async function foo() {
     let obj;
-  
+
     const res = await fetch('https://jsonplaceholder.typicode.com/posts/1')
-  
+
     obj = await res.json();
-  
+
     console.log(obj)
-  }
-  
-  foo();
+}
+
+foo();
