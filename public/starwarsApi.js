@@ -179,7 +179,7 @@ console.log('our star wars filmData should be null here: ', localStorage.getItem
 
 // function to fetch any data ex: 'films'
 const fetchData = (reqData) => {
-    if (localStorage.getItem('filmData') === null) {
+    if (localStorage.getItem(reqData) === null) {
         return fetch(`http://localhost:3000/api/${reqData}`)
             .then(res => {
                 if (!res.ok) {
@@ -189,7 +189,7 @@ const fetchData = (reqData) => {
             })
             .then(data => {
                 console.log(`fetched reqData: ${reqData} `, data)
-                return data;
+                return data.results;
             })
             .catch(err => console.error(`Error fetching data: ${reqData}: `, err))
     } else {
@@ -204,3 +204,38 @@ fetchData('planets');
 fetchData('species');
 fetchData('starships');
 fetchData('vehicles');
+
+// function to display info about a random planet
+async function displayRandomPlanet() {
+    let planetData;
+    fetchData('planets')
+        .then(pData => {
+            console.log({pData});
+            planetData = pData;
+            // document.getElementById('res-display').innerText = planetData[Math.floor(Math.random() * planetData.length)].name;
+            const pDataKeyValuePairs = Object.entries(planetData[Math.floor(Math.random() * planetData.length)]);
+            console.log({pDataKeyValuePairs})
+            let futureInnerText = '';
+            for (const attribute of pDataKeyValuePairs) {
+                futureInnerText += `\n${attribute[0]}: ${attribute[1]}`
+            }
+            console.log({futureInnerText});
+            document.getElementById('res-display').innerText = futureInnerText;
+        })
+        .catch(err => console.error('Error fetching planetData: ', err));
+    // return planetData;
+};
+
+displayRandomPlanet();
+
+async function foo() {
+    let obj;
+  
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts/1')
+  
+    obj = await res.json();
+  
+    console.log(obj)
+  }
+  
+  foo();
