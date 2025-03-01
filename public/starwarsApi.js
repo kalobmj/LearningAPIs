@@ -84,3 +84,49 @@ async function displayInfo(reqData) {
 // displayInfo('species');
 // displayInfo('starships');
 displayInfo('vehicles');
+
+// OSRS build py
+const historicalMarketDataOsrsWikiApi = 'https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices';
+
+// Routes:
+// API endpoint: 'prices.runescape.wiki/api/v1/osrs'
+
+// Endpoint url prefix:
+const urlPrefix = 'https://prices.runescape.wiki/api/v1/osrs/';
+
+// Lastest price (all items):
+// map from itemId
+const latestPrice = '/latest';
+
+// Query parameters:
+// (optional) ItemID. will only display the latest price for this item
+// (required) id: item id to return a time series for
+const id = 'id';
+// const id = 'id'; // use same id for mapping and time
+
+// To load this data externally, send a GET request to:
+const moduleDataJsonGetRequest = 'https://oldschool.runescape.wiki/?title=Module:GEIDs/data.json&action=raw&ctype=application%2Fjson'
+
+// Mapping:
+// Gives a list of objects containing key value pairs about items
+const mapping = '/mapping';
+
+// 5-minute prices:
+// Gives 5-minute avg of item high and low prices aswell as [number traded]
+const fiveMinute = '/5m';
+
+// 1-hour prices:
+// Gives hourly avg of item hiugh and low, aswell as number traded
+const oneHour = '/1h';
+
+// Query parameters:
+// (optional) Timestep. display 5-minute avgs for all items -> .data.Id
+const timestamp = 'timestamp';
+
+// Time series (getting price data at a specific time interval) :
+// Gives a list of high and low prices of item with given id at the given interval
+const timeSeries = '/timeseries';
+
+// Query parameters:
+// (required) timestep: valid options are "5m", "1h", "6h", "24h", 
+const timeStep = 'timestep';
