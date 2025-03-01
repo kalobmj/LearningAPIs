@@ -57,26 +57,30 @@ fetchData('species');
 fetchData('starships');
 fetchData('vehicles');
 
-// function to display info about a random planet
-async function displayRandomPlanet() {
-    let planetData;
-    await fetchData('planets')
-    .then(pData => {
-        console.log({ pData });
-        planetData = pData;
-        // document.getElementById('res-display').innerText = planetData[Math.floor(Math.random() * planetData.length)].name;
-        const pDataKeyValuePairs = Object.entries(planetData[Math.floor(Math.random() * planetData.length)]);
-        console.log({ pDataKeyValuePairs })
+// function to display info based on req data passed
+async function displayInfo(reqData) {
+    let infoData;
+    await fetchData(`${reqData}`)
+    .then(iData => {
+        console.log({ iData });
+        infoData = iData;
+        const iDataKeyValuePairs = Object.entries(infoData[Math.floor(Math.random() * infoData.length)]);
+        console.log({ iDataKeyValuePairs })
         let futureInnerText = '';
-        for (const attribute of pDataKeyValuePairs) {
+        for (const attribute of iDataKeyValuePairs) {
             futureInnerText += `\n${attribute[0]}: ${attribute[1]}`
         }
         console.log({ futureInnerText });
         document.getElementById('res-display').innerText = futureInnerText;
     })
-    .catch(err => console.error('Error fetching planetData: ', err));
+    .catch(err => console.error(`Error fetching ${reqData}Data: `, err));
     // return planetData;
 };
 
-// display random planet information on our static page
-displayRandomPlanet();
+// display info on static page
+// displayInfo('films');
+// displayInfo('people');
+// displayInfo('planets');
+// displayInfo('species');
+// displayInfo('starships');
+displayInfo('vehicles');
