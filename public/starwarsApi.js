@@ -79,11 +79,11 @@ async function displayInfo(reqData) {
 
 // display info on static page
 // displayInfo('films');
-// displayInfo('people');
+displayInfo('people');
 // displayInfo('planets');
 // displayInfo('species');
 // displayInfo('starships');
-displayInfo('vehicles');
+// displayInfo('vehicles');
 
 // JSON schema species
 // make request to -> /api/<resource>/schema
@@ -126,7 +126,7 @@ searchResource('vehicles', 'shuttle');
 
 // test req params function
 async function fetchRandomPerson() {
-    const randomNum = Math.floor(Math.random() * 5) + 1
+    const randomNum = Math.floor(Math.random() * 10) + 1
     fetch(`http://localhost:3000/api/people/${randomNum}`)
         .then(res => res.json())
         .then(data => {
