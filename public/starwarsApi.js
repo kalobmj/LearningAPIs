@@ -85,6 +85,41 @@ async function displayInfo(reqData) {
 // displayInfo('starships');
 displayInfo('vehicles');
 
+// JSON schema species
+// make request to -> /api/<resource>/schema
+
+// .json()
+// Note that despite the method being named json(), the result is not JSON but is instead the result of taking JSON as input and parsing it to produce a JavaScript object.
+
+// async function displaySchema(reqData) {
+//     await fetch(`http://localhost:3000/api/${reqData}/schema`, { method: "GET" })
+//      .then(res => res.json())
+//      .then(sData => {
+//         console.log({sData})
+//         console.log('this should be our JSON schema for our species data: ', sData)
+//      })
+//      .catch(err => console.error(`Error fetching ${reqData} schema: `, err))
+// }
+
+// displaySchema('species');
+
+// Searching
+// All resources support a search parameter that filters the set of resources returned. This allows you to make queries like:
+
+// https://swapi.dev/api/people/?search=r2
+
+// All searches will use case-insensitive partial matches on the set of search fields. To see the set of search fields for each resource, check out the individual resource documentation. For more information on advanced search terms see here.
+
+async function searchR2() {
+    await fetch(`http://localhost:3000/api/people/?search=r2`)
+     .then(res => res.json())
+     .then(data => {
+        console.log({data})
+     })
+};
+
+searchR2();
+
 // OSRS build py
 const historicalMarketDataOsrsWikiApi = 'https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices';
 
@@ -130,3 +165,6 @@ const timeSeries = '/timeseries';
 // Query parameters:
 // (required) timestep: valid options are "5m", "1h", "6h", "24h", 
 const timeStep = 'timestep';
+
+// Please set a descriptive User-Agent!
+// This is the only thing we ask! If you're using automated tooling to scrape the wiki's APIs, please set a User-Agent that describes what you're using it for: for example, dps-calculator-stats-scraper.

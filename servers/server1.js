@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import { spec } from 'node:test/reporters';
 
 const app = express();
 const port = 3000
@@ -65,13 +66,41 @@ app.get('/api/films', cors(), async (req,res) => {
 app.get('/api/people', cors(), async (req,res) => {
     // res.send(data) -> this returns data to frontend
     const people = 'https://swapi.dev/api/people/';
-    fetch(people)
-    .then(res => res.json())
-    .then(data => {
-        console.log({data})
-        res.send(data)
-    })
+    const param1 = req.query
+    const param2 = req.query.search
+
+    console.log(param1)
+    console.log(param2)
+
+    if (param1 != undefined) {
+        fetch(`${people}?search=${param1.search}`)
+         .then(res => res.json())
+         .then(data => {
+            console.log({data})
+            res.send(data)
+         })
+    } else {
+
+        fetch(people)
+        .then(res => res.json())
+        .then(data => {
+            console.log({data})
+            res.send(data)
+        })
+    }
+
 });
+
+// app.get('/api/people/?search=r2', cors(), async (req,res) => {
+//     // res.send(data) -> this returns data to frontend
+//     const people = 'https://swapi.dev/api/people/?search=r2';
+//     fetch(people)
+//     .then(res => res.json())
+//     .then(data => {
+//         console.log({data})
+//         res.send(data)
+//     })
+// });
 
 // api call planets
 app.get('/api/planets', cors(), async (req,res) => {
@@ -120,6 +149,16 @@ app.get('/api/vehicles', cors(), async (req,res) => {
         res.send(data)
     })
 });
+
+// app.get('/api/species/schema', cors(), async (req, res) => {
+//     const speciesSchema = 'https://swapi.dev/api/species/schema';
+//     fetch(speciesSchema)
+//         .then(res => res.json())
+//         .then(data => {
+//             console.log({data})
+//             res.send(data)
+//         })
+// });
 
 app.listen(port, () => {
     console.log(`Example app listening on ${port}`)
