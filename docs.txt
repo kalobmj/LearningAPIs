@@ -26,3 +26,8 @@ we are learning about apis in the way that we will use in our price project
 
 2/28 got most of data calls working. just need to learn how to work with that data and work on database.
     need to fix text wrapping on middle text
+
+3/3 got most of data coming in. need to work on learning different methods, things like headers. understanding JSON structure. 
+    need to work on try... catch...
+        need to understand async and await purposes
+            remember to include catch cases and built in error checks

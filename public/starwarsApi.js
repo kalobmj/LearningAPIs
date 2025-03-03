@@ -118,7 +118,23 @@ async function searchR2() {
      })
 };
 
-searchR2();
+// function to make queries based of resource
+// resource: people, search: r2 -> (people, r2) (strings)
+async function searchResource(resource, search) {
+    await fetch(`http://localhost:3000/api/${resource}/?search=${search}`)
+     .then(res => res.json())
+     .then(data => {
+        console.log(`search query data -> resource: ${resource}, search: ${search}`, data)
+     })
+     .catch(err => console.error(err))
+}
+
+searchResource('people', 'r2');
+searchResource('people', 'r2');
+searchResource('people', 'r2');
+searchResource('people', 'r2');
+searchResource('people', 'r2');
+searchResource('people', 'r2');
 
 // OSRS build py
 const historicalMarketDataOsrsWikiApi = 'https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices';

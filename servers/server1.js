@@ -5,8 +5,6 @@ import { spec } from 'node:test/reporters';
 const app = express();
 const port = 3000
 
-// app.use(cors());
-
 app.get('/', (req, res) => {
     console.log('app get root /')
     res.send('Hello World!')
@@ -21,23 +19,13 @@ app.get('/newRoute', (req, res) => {
     ];
 
     const randomNum = Math.floor(Math.random() * greetings.length);
-    console.log({randomNum})
+    console.log({ randomNum })
 
     const randomGreeting = greetings[randomNum];
     console.log('Your random greeting is: ', randomGreeting)
-    
+
     res.send(randomGreeting);
 })
-
-
-
-// const starwarsFilms = 'https://swapi.dev/api/films/';
-
-// fetch(starwarsFilms)
-//     .then(res => res.json())
-//     .then(data => {
-        
-//     })
 
 // HTTP/1.0 200 OK
 // Content-Type: application/json
@@ -50,115 +38,173 @@ app.get('/newRoute', (req, res) => {
 //     "vehicles": "https://swapi.dev/api/vehicles/"
 // }
 
-// api call films
-app.get('/api/films', cors(), async (req,res) => {
-    // res.send(data) -> this returns data to frontend
+// api call films including search query
+app.get('/api/films', cors(), async (req, res) => {
     const films = 'https://swapi.dev/api/films/';
-    fetch(films)
-    .then(res => res.json())
-    .then(data => {
-        console.log({data})
-        res.send(data)
-    })
-});
+    const filmsSearch = req.query.search;
 
-// api call people
-app.get('/api/people', cors(), async (req,res) => {
-    // res.send(data) -> this returns data to frontend
-    const people = 'https://swapi.dev/api/people/';
-    const param1 = req.query
-    const param2 = req.query.search
-
-    console.log(param1)
-    console.log(param2)
-
-    if (param1 != undefined) {
-        fetch(`${people}?search=${param1.search}`)
-         .then(res => res.json())
-         .then(data => {
-            console.log({data})
-            res.send(data)
-         })
+    if (filmsSearch != undefined) {
+        fetch(`${films}?search=${filmsSearch}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Network response not ok. searchTerm: ${filmsSearch}`)
+                }
+                return res.json()
+            })
+            .then(data => {
+                console.log({ data })
+                res.send(data)
+            })
+            .catch(err => console.error(`Error with search query: Error: ${err}, searchTerm: ${filmsSearch}`))
     } else {
+        fetch(films)
+            .then(res => res.json())
+            .then(data => {
+                console.log({ data })
+                res.send(data)
+            })
+    };
+});
 
+// api call people including search query
+app.get('/api/people', cors(), async (req, res) => {
+    const people = 'https://swapi.dev/api/people/';
+    const peopleSearch = req.query.search;
+
+    if (peopleSearch != undefined) {
+        fetch(`${people}?search=${peopleSearch}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Network response not ok. searchTerm: ${peopleSearch}`)
+                }
+                return res.json()
+            })
+            .then(data => {
+                console.log({ data })
+                res.send(data)
+            })
+            .catch(err => console.error(`Error with search query: Error: ${err}, searchTerm: ${peopleSearch}`))
+    } else {
         fetch(people)
-        .then(res => res.json())
-        .then(data => {
-            console.log({data})
-            res.send(data)
-        })
-    }
-
+            .then(res => res.json())
+            .then(data => {
+                console.log({ data })
+                res.send(data)
+            })
+    };
 });
 
-// app.get('/api/people/?search=r2', cors(), async (req,res) => {
-//     // res.send(data) -> this returns data to frontend
-//     const people = 'https://swapi.dev/api/people/?search=r2';
-//     fetch(people)
-//     .then(res => res.json())
-//     .then(data => {
-//         console.log({data})
-//         res.send(data)
-//     })
-// });
-
-// api call planets
-app.get('/api/planets', cors(), async (req,res) => {
-    // res.send(data) -> this returns data to frontend
+// api call planets including search query
+app.get('/api/planets', cors(), async (req, res) => {
     const planets = 'https://swapi.dev/api/planets/';
-    fetch(planets)
-    .then(res => res.json())
-    .then(data => {
-        console.log({data})
-        res.send(data)
-    })
+    const planetsSearch = req.query.search;
+
+    if (planetsSearch != undefined) {
+        fetch(`${planets}?search=${planetsSearch}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Network response not ok. searchTerm: ${planetsSearch}`)
+                }
+                return res.json()
+            })
+            .then(data => {
+                console.log({ data })
+                res.send(data)
+            })
+            .catch(err => console.error(`Error with search query: Error: ${err}, searchTerm: ${planetsSearch}`))
+    } else {
+        fetch(planets)
+            .then(res => res.json())
+            .then(data => {
+                console.log({ data })
+                res.send(data)
+            })
+    };
 });
 
-// api call species
-app.get('/api/species', cors(), async (req,res) => {
-    // res.send(data) -> this returns data to frontend
+// api call species including search query
+app.get('/api/species', cors(), async (req, res) => {
     const species = 'https://swapi.dev/api/species/';
-    fetch(species)
-    .then(res => res.json())
-    .then(data => {
-        console.log({data})
-        res.send(data)
-    })
+    const speciesSearch = req.query.search;
+
+    if (speciesSearch != undefined) {
+        fetch(`${species}?search=${speciesSearch}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Network response not ok. searchTerm: ${speciesSearch}`)
+                }
+                return res.json()
+            })
+            .then(data => {
+                console.log({ data })
+                res.send(data)
+            })
+            .catch(err => console.error(`Error with search query: Error: ${err}, searchTerm: ${speciesSearch}`))
+    } else {
+        fetch(species)
+            .then(res => res.json())
+            .then(data => {
+                console.log({ data })
+                res.send(data)
+            })
+    };
 });
 
-// api call starships
-app.get('/api/starships', cors(), async (req,res) => {
-    // res.send(data) -> this returns data to frontend
+// api call starships including search query
+app.get('/api/starships', cors(), async (req, res) => {
     const starships = 'https://swapi.dev/api/starships/';
-    fetch(starships)
-    .then(res => res.json())
-    .then(data => {
-        console.log({data})
-        res.send(data)
-    })
+    const starshipsSearch = req.query.search;
+
+    if (starshipsSearch != undefined) {
+        fetch(`${starships}?search=${starshipsSearch}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Network response not ok. searchTerm: ${starshipsSearch}`)
+                }
+                return res.json()
+            })
+            .then(data => {
+                console.log({ data })
+                res.send(data)
+            })
+            .catch(err => console.error(`Error with search query: Error: ${err}, searchTerm: ${starshipsSearch}`))
+    } else {
+        fetch(starships)
+            .then(res => res.json())
+            .then(data => {
+                console.log({ data })
+                res.send(data)
+            })
+    };
 });
 
-// api call vehicles
-app.get('/api/vehicles', cors(), async (req,res) => {
-    // res.send(data) -> this returns data to frontend
+// api call vehicles including search query
+app.get('/api/vehicles', cors(), async (req, res) => {
     const vehicles = 'https://swapi.dev/api/vehicles/';
-    fetch(vehicles)
-    .then(res => res.json())
-    .then(data => {
-        console.log({data})
-        res.send(data)
-    })
-});
+    const vehiclesSearch = req.query.search;
 
-// app.get('/api/species/schema', cors(), async (req, res) => {
-//     const speciesSchema = 'https://swapi.dev/api/species/schema';
-//     fetch(speciesSchema)
-//         .then(res => res.json())
-//         .then(data => {
-//             console.log({data})
-//             res.send(data)
-//         })
-// });
+    if (vehiclesSearch != undefined) {
+        fetch(`${vehicles}?search=${vehiclesSearch}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Network response not ok. searchTerm: ${vehiclesSearch}`)
+                }
+                return res.json()
+            })
+            .then(data => {
+                console.log({ data })
+                res.send(data)
+            })
+            .catch(err => console.error(`Error with search query: Error: ${err}, searchTerm: ${vehiclesSearch}`))
+    } else {
+        fetch(vehicles)
+            .then(res => res.json())
+            .then(data => {
+                console.log({ data })
+                res.send(data)
+            })
+    };
+});
 
 app.listen(port, () => {
     console.log(`Example app listening on ${port}`)
