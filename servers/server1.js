@@ -206,6 +206,19 @@ app.get('/api/vehicles', cors(), async (req, res) => {
     };
 });
 
+// test req parameters
+app.get('/api/people/:id', cors(), async (req, res) => {
+    const people = 'https://swapi.dev/api/people/';
+    const peopleId = req.params.id;
+
+    fetch(`${people}${peopleId}/`)
+        .then(res => res.json())
+        .then(data => {
+            console.log({ data })
+            res.send(data)
+        })
+});
+
 app.listen(port, () => {
     console.log(`Example app listening on ${port}`)
 })
