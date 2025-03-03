@@ -31,18 +31,18 @@ checkForData();
 const fetchData = async (reqData) => {
     if (localStorage.getItem(`${reqData}Data`) === 'undefined' || null) {
         return fetch(`http://localhost:3000/api/${reqData}`)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error(`Network response not ok: ${reqData}`)
-            }
-            return res.json()
-        })
-        .then(data => {
-            console.log(`fetched reqData: ${reqData} `, data)
-            localStorage.setItem(`${reqData}Data`, JSON.stringify(data.results))
-            return data.results;
-        })
-        .catch(err => console.error(`Error fetching data: ${reqData}: `, err))
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Network response not ok: ${reqData}`)
+                }
+                return res.json()
+            })
+            .then(data => {
+                console.log(`fetched reqData: ${reqData} `, data)
+                localStorage.setItem(`${reqData}Data`, JSON.stringify(data.results))
+                return data.results;
+            })
+            .catch(err => console.error(`Error fetching data: ${reqData}: `, err))
     } else {
         console.log(`we have our data: ${reqData} in localStorage :)`);
         return JSON.parse(localStorage.getItem(`${reqData}Data`));
@@ -61,19 +61,19 @@ fetchData('vehicles');
 async function displayInfo(reqData) {
     let infoData;
     await fetchData(`${reqData}`)
-    .then(iData => {
-        console.log({ iData });
-        infoData = iData;
-        const iDataKeyValuePairs = Object.entries(infoData[Math.floor(Math.random() * infoData.length)]);
-        console.log({ iDataKeyValuePairs })
-        let futureInnerText = '';
-        for (const attribute of iDataKeyValuePairs) {
-            futureInnerText += `\n${attribute[0]}: ${attribute[1]}`
-        }
-        console.log({ futureInnerText });
-        document.getElementById('res-display').innerText = futureInnerText;
-    })
-    .catch(err => console.error(`Error fetching ${reqData}Data: `, err));
+        .then(iData => {
+            console.log({ iData });
+            infoData = iData;
+            const iDataKeyValuePairs = Object.entries(infoData[Math.floor(Math.random() * infoData.length)]);
+            console.log({ iDataKeyValuePairs })
+            let futureInnerText = '';
+            for (const attribute of iDataKeyValuePairs) {
+                futureInnerText += `\n${attribute[0]}: ${attribute[1]}`
+            }
+            console.log({ futureInnerText });
+            document.getElementById('res-display').innerText = futureInnerText;
+        })
+        .catch(err => console.error(`Error fetching ${reqData}Data: `, err));
     // return planetData;
 };
 
@@ -98,23 +98,15 @@ displayInfo('people');
 
 // All searches will use case-insensitive partial matches on the set of search fields. To see the set of search fields for each resource, check out the individual resource documentation. For more information on advanced search terms see here.
 
-async function searchR2() {
-    await fetch(`http://localhost:3000/api/people/?search=r2`)
-     .then(res => res.json())
-     .then(data => {
-        console.log({data})
-     })
-};
-
 // function to make queries based of resource
 // resource: people, search: r2 -> (people, r2) (strings)
 async function searchResource(resource, search) {
     await fetch(`http://localhost:3000/api/${resource}/?search=${search}`)
-     .then(res => res.json())
-     .then(data => {
-        console.log(`search query data -> resource: ${resource}, search: ${search}`, data)
-     })
-     .catch(err => console.error(err))
+        .then(res => res.json())
+        .then(data => {
+            console.log(`search query data -> resource: ${resource}, search: ${search}`, data)
+        })
+        .catch(err => console.error(err))
 };
 
 searchResource('films', 'hope');
@@ -135,6 +127,47 @@ async function fetchRandomPerson() {
 };
 
 fetchRandomPerson();
+
+async function fetchRandomStarship() {
+    const randomNum = Math.floor(Math.random() * 20)
+    fetch(`http://localhost:3000/api/starships/${randomNum}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(`Random starship data with randomNum ${randomNum}: `, data)
+        })
+};
+
+fetchRandomStarship();
+
+// function to findRandom Info based on resource and id
+async function fetchRandomInfo(resource, id) {
+    let randomNum;
+    if (id) {
+        fetch(`http://localhost:3000/api/${resource}/${id}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Error fetching specific resource info based on id. id: ${id}`)
+                }
+                return res.json()
+            })
+            .then(data => {
+                console.log(`This is our ${resource} data fetched with id number ${id}`, data)
+            })
+            .catch(err => console.error(`Error with resource ${resource} and id ${id}: ${err}`))
+    } else {
+        if (localStorage.getItem(`${resource}Data`) === null || 'undefined') {
+            fetchData(resource)
+            randomNum = Math.floor(Math.random() * JSON.parse(localStorage.getItem(`${resource}Data`)).length);
+
+            console.log({ randomNum })
+            console.log(`This is our random ${resource} info pulled from localStorage. Found with randomNum: ${randomNum}`, JSON.parse(localStorage.getItem(`${resource}Data`))[randomNum])
+
+        };
+    };
+};
+
+fetchRandomInfo('starships');
+fetchRandomInfo('people', 3);
 
 // OSRS build py
 const historicalMarketDataOsrsWikiApi = 'https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices';
