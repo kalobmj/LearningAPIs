@@ -91,18 +91,6 @@ displayInfo('vehicles');
 // .json()
 // Note that despite the method being named json(), the result is not JSON but is instead the result of taking JSON as input and parsing it to produce a JavaScript object.
 
-// async function displaySchema(reqData) {
-//     await fetch(`http://localhost:3000/api/${reqData}/schema`, { method: "GET" })
-//      .then(res => res.json())
-//      .then(sData => {
-//         console.log({sData})
-//         console.log('this should be our JSON schema for our species data: ', sData)
-//      })
-//      .catch(err => console.error(`Error fetching ${reqData} schema: `, err))
-// }
-
-// displaySchema('species');
-
 // Searching
 // All resources support a search parameter that filters the set of resources returned. This allows you to make queries like:
 
@@ -127,14 +115,26 @@ async function searchResource(resource, search) {
         console.log(`search query data -> resource: ${resource}, search: ${search}`, data)
      })
      .catch(err => console.error(err))
-}
+};
 
+searchResource('films', 'hope');
 searchResource('people', 'r2');
-searchResource('people', 'r2');
-searchResource('people', 'r2');
-searchResource('people', 'r2');
-searchResource('people', 'r2');
-searchResource('people', 'r2');
+searchResource('planets', 'naboo');
+searchResource('species', 'wookie');
+searchResource('starships', 'falcon');
+searchResource('vehicles', 'shuttle');
+
+// test req params function
+async function fetchRandomPerson() {
+    const randomNum = Math.floor(Math.random() * 5) + 1
+    fetch(`http://localhost:3000/api/people/${randomNum}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(`Random person data with randomNum ${randomNum}: `, data)
+        })
+};
+
+fetchRandomPerson();
 
 // OSRS build py
 const historicalMarketDataOsrsWikiApi = 'https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices';
