@@ -98,7 +98,7 @@ displayInfo('people');
 
 // All searches will use case-insensitive partial matches on the set of search fields. To see the set of search fields for each resource, check out the individual resource documentation. For more information on advanced search terms see here.
 
-// function to make queries based of resource
+// function to make search queries based off resource
 // resource: people, search: r2 -> (people, r2) (strings)
 async function searchResource(resource, search) {
     await fetch(`http://localhost:3000/api/${resource}/?search=${search}`)
