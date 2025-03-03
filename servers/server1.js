@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import { spec } from 'node:test/reporters';
 
 const app = express();
 const port = 3000
