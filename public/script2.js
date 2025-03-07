@@ -83,6 +83,8 @@ function colorName({types}) {
         fairy: '#D685AD',
     };
 
+    console.table(colorTypes)
+
     const ourType = types.split(',')[0];
     const style = document.getElementById('style')
 

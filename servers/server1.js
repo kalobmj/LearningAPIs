@@ -295,6 +295,29 @@ app.get('/api/vehicles/:id?', cors(), async (req, res) => {
     }
 });
 
+app.get('/api/people/?pageNumber', cors(), async (req, res) => {
+    // find random character from api
+    const baseURL = 'https://swapi.dev/api/people/?page='
+    const peoplePageNumber = req.params.pageNumber;
+    console.log({peoplePageNumber})
+
+    try {
+        const res = await fetch(`${baseURL}${peoplePageNumber}`)
+        if (!res.ok) {
+            throw new Error('wrong page number entered')
+        }
+        const data =  await res.json();
+
+        res.send(data)
+
+
+
+    } catch (error) {
+        console.log(error.message)
+    }
+
+})
+
 app.listen(port, () => {
     console.log(`Example app listening on ${port}`)
 });
