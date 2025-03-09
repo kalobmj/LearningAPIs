@@ -34,3 +34,6 @@ we are learning about apis in the way that we will use in our price project
             need to understand async and await purposes
                 remember to include catch cases and built in error checks
     got a function working that will grab info based on the resouce and id passed. if only resource is passed. we will get a random set of info from our localstorage.
+
+3/9 
+    our call to our backend to search on pageNumber is not working. we need to fix that. blocked by cors but we are reaching our backend

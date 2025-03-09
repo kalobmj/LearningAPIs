@@ -14,20 +14,24 @@
 //  vehicles string -- The URL root for Vehicles resources
 
 // checker function to see if our localStorage has our data. if not set them and pass a value of undefined so we can work with them.
-const checkForData = () => {
-    if (localStorage.length === 0) {
-        // initial setting of data to undefined. commenting this out will leave the data in our localStorage (make sure to set our data, because our functions will not work without it)
-        localStorage.setItem('filmsData', undefined);
-        localStorage.setItem('peopleData', undefined);
-        localStorage.setItem('planetsData', undefined);
-        localStorage.setItem('speciesData', undefined);
-        localStorage.setItem('starshipsData', undefined);
-        localStorage.setItem('vehiclesData', undefined);
-    }
-};
 
-// checking data on start
-checkForData();
+let dateNow = Date.now();
+console.log({dateNow})
+let timeSinceDataPull = localStorage.getItem('timeSinceDataPull') // null or int
+console.log({timeSinceDataPull})
+
+// 1 week: 604800000
+
+// check if data has been pulled or been over a week since last pull
+if (timeSinceDataPull === null || timeSinceDataPull + 604800000 < dateNow) {
+    localStorage.setItem('timeSinceDataPull', dateNow);
+    localStorage.setItem('filmsData', undefined);
+    localStorage.setItem('peopleData', undefined);
+    localStorage.setItem('planetsData', undefined);
+    localStorage.setItem('speciesData', undefined);
+    localStorage.setItem('starshipsData', undefined);
+    localStorage.setItem('vehiclesData', undefined);
+};
 
 // function to fetch any data ex: 'films'
 const fetchData = async (reqData) => {
@@ -171,16 +175,21 @@ async function fetchRandomInfo(resource, id) {
 fetchRandomInfo('starships');
 fetchRandomInfo('people', 3);
 
-function getRandomPersonFromPage(pageNumber) {
+async function getRandomPersonFromPage(pageNumber) {
     try {
-        const baseURL = 'https://localhost:3000/api/people/'
+        const baseURL = 'https://localhost:3000/api/people/pagenumber/'
         const res = await fetch(`${baseURL}${pageNumber}`)
         if (!res.ok) {
             throw new Error('error calling backend...')
         }
         const data = await res.json()
+        console.log({ data })
+    } catch (error) {
+        console.error(error)
     }
 }
+
+getRandomPersonFromPage(3)
 
 // OSRS build py
 const historicalMarketDataOsrsWikiApi = 'https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices';

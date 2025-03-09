@@ -295,11 +295,17 @@ app.get('/api/vehicles/:id?', cors(), async (req, res) => {
     }
 });
 
-app.get('/api/people/?pageNumber', cors(), async (req, res) => {
+app.get('/api/people/pagenumber/:pageNumber', cors(), async (req, res) => {
     // find random character from api
     const baseURL = 'https://swapi.dev/api/people/?page='
     const peoplePageNumber = req.params.pageNumber;
+    const peoplePageNumber2 = req.query.pageNumber;
     console.log({peoplePageNumber})
+    console.log({peoplePageNumber2})
+
+    console.log(`${baseURL}${peoplePageNumber}`)
+
+    let fetchData;
 
     try {
         const res = await fetch(`${baseURL}${peoplePageNumber}`)
@@ -308,7 +314,9 @@ app.get('/api/people/?pageNumber', cors(), async (req, res) => {
         }
         const data =  await res.json();
 
-        res.send(data)
+        console.log('this is our fetched data: ', data)
+
+        fetchData = data
 
 
 
@@ -316,6 +324,7 @@ app.get('/api/people/?pageNumber', cors(), async (req, res) => {
         console.log(error.message)
     }
 
+    res.send(fetchedData)
 })
 
 app.listen(port, () => {
