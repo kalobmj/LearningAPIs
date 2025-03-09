@@ -115,12 +115,12 @@ async function searchResource(resource, search) {
         .catch(err => console.error(err))
 };
 
-searchResource('films', 'hope');
-searchResource('people', 'r2');
-searchResource('planets', 'naboo');
-searchResource('species', 'wookie');
-searchResource('starships', 'falcon');
-searchResource('vehicles', 'shuttle');
+// searchResource('films', 'hope');
+// searchResource('people', 'r2');
+// searchResource('planets', 'naboo');
+// searchResource('species', 'wookie');
+// searchResource('starships', 'falcon');
+// searchResource('vehicles', 'shuttle');
 
 // test req params function
 async function fetchRandomPerson() {
@@ -132,7 +132,7 @@ async function fetchRandomPerson() {
         })
 };
 
-fetchRandomPerson();
+// fetchRandomPerson();
 
 async function fetchRandomStarship() {
     const randomNum = Math.floor(Math.random() * 20)
@@ -143,7 +143,7 @@ async function fetchRandomStarship() {
         })
 };
 
-fetchRandomStarship();
+// fetchRandomStarship();
 
 // function to findRandom Info based on resource and id
 async function fetchRandomInfo(resource, id) {
@@ -172,8 +172,8 @@ async function fetchRandomInfo(resource, id) {
     };
 };
 
-fetchRandomInfo('starships');
-fetchRandomInfo('people', 3);
+// fetchRandomInfo('starships');
+// fetchRandomInfo('people', 3);
 
 async function getRandomPersonFromPage(pageNumber) {
     try {
@@ -190,6 +190,25 @@ async function getRandomPersonFromPage(pageNumber) {
 }
 
 getRandomPersonFromPage(3)
+
+async function tryPersonPage() {
+    try {
+        const res = await fetch('https://swapi.dev/api/people/?page=2')
+        if (!res.ok) {
+            throw new Error('probem looking on page 2')
+        }
+        const data = await res.json();
+        console.log('this is our data: ', data)
+        console.log(data.next)
+        console.log(data.results)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+tryPersonPage();
+
+// src="./static/assets/img/people/6.jpg"
 
 // OSRS build py
 const historicalMarketDataOsrsWikiApi = 'https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices';
