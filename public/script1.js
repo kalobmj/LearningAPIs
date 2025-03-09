@@ -171,6 +171,17 @@ async function fetchRandomInfo(resource, id) {
 fetchRandomInfo('starships');
 fetchRandomInfo('people', 3);
 
+function getRandomPersonFromPage(pageNumber) {
+    try {
+        const baseURL = 'https://localhost:3000/api/people/'
+        const res = await fetch(`${baseURL}${pageNumber}`)
+        if (!res.ok) {
+            throw new Error('error calling backend...')
+        }
+        const data = await res.json()
+    }
+}
+
 // OSRS build py
 const historicalMarketDataOsrsWikiApi = 'https://oldschool.runescape.wiki/w/RuneScape:Real-time_Prices';
 
