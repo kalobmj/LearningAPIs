@@ -37,3 +37,6 @@ we are learning about apis in the way that we will use in our price project
 
 3/9 
     our call to our backend to search on pageNumber is not working. we need to fix that. blocked by cors but we are reaching our backend
+
+3/10
+    got all of our data pretty much working. just need to clean up our code on both ends and build a small interface.
