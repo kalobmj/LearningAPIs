@@ -9,143 +9,109 @@ app.get('/', (req, res) => {
     res.send('Hello world!')
 });
 
-// 
-
+// calling films API
 app.get('/api/filmsData', cors(), async (req, res) => {
-    // const films = 'https://swapi.dev/api/films/';
-    // let filmData = [];
-
-    const films = 'https://swapi.dev/api/films/';
+    let filmsUrl = 'https://swapi.dev/api/films/';
     let filmData = [];
-    const fetchAllFilmsData = async (url) => {
-        let nextUrl = url;
 
-        while (nextUrl) {
-            const res = await fetch(nextUrl);
-            if (!res.ok) {
-                throw new Error('Error fetching film data from API')
-            }
-            const data = await res.json();
-            filmData.push(...data.results);
-            console.log({filmData})
-            nextUrl = data.next; // if null, while loop stops
-        }
-
-        return filmData
-
+    do {
+        const res = await fetch(filmsUrl);
+        if (!res.ok) {
+            throw new Error('Error calling films API...')
+        };
+        const data = await res.json();
+        filmsUrl = data.next;
+        filmData.push(...data.results);
+    } while (filmsUrl) {
+        res.send(JSON.stringify(filmData));
     }
-
-    // fetchAllFilmsData(films)
-
-    // console.log(filmData)
-    // console.log('this is jsonStringify our filmData', JSON.stringify(filmData))
-
-    res.send(JSON.stringify(fetchAllFilmsData(films)))
-
-    // try {
-    //     const res = await fetch(films)
-    //     if (!res.ok) {
-    //         throw new Error('Error calling star wars films API')
-    //     }
-    //     const data = await res.json();
-
-    //     // logic for sifting here...
-    //     // possibly using recursion where the base case is if data.next === null
-    //     // while data.next != null .. call itself with fetches and appending the data to our array. when the base case is reached the recursion will backtrack. the last pages will push first. so we will need to append our data to the front.
-
-    //     while (data.next != null) {
-    //         filmData.push(data.results)
-
-    //     }
-
-    //     filmData = data;
-    // } catch (err) {
-    //     console.error(err)
-    // };
-    // res.send(filmData); // sending an array of each data page
 });
 
-// 
-
+// calling people API
 app.get('/api/peopleData', cors(), async (req, res) => {
-    const people = 'https://swapi.dev/api/people/';
-    let peopleData;
-    try {
-        const res = await fetch(people)
+    let peopleURL = 'https://swapi.dev/api/people/';
+    let peopleData = [];
+
+    do {
+        const res = await fetch(peopleURL)
         if (!res.ok) {
-            throw new Error('Error calling star wars people API')
+            throw new Error('Error calling people API...')
         }
         const data = await res.json();
-        peopleData = data;
-    } catch (err) {
-        console.error(err)
-    };
-    res.send(peopleData);
+        peopleData.push(...data.results);
+        peopleURL = data.next;
+    } while (peopleURL) {
+        res.send(JSON.stringify(peopleData));
+    }
 });
 
+// calling planets API
 app.get('/api/planetsData', cors(), async (req, res) => {
-    const planets = 'https://swapi.dev/api/planets/';
-    let planetData;
-    try {
-        const res = await fetch(planets)
+    let planetsURL = 'https://swapi.dev/api/planets/';
+    let planetsData = [];
+
+    do {
+        const res = await fetch(planetsURL);
         if (!res.ok) {
-            throw new Error('Error calling star wars planets API')
-        }
+            throw new Error('Error calling planets API...')
+        };
         const data = await res.json();
-        planetData = data;
-    } catch (err) {
-        console.error(err)
-    };
-    res.send(planetData);
+        planetsData.push(...data.results);
+        planetsURL = data.next;
+    } while (planetsURL) {
+        res.send(JSON.stringify(planetsData));
+    }
 });
 
 app.get('/api/speciesData', cors(), async (req, res) => {
-    const species = 'https://swapi.dev/api/species/';
-    let speciesData;
-    try {
-        const res = await fetch(species)
+    let speciesURL = 'https://swapi.dev/api/species';
+    let speciesData = [];
+
+    do {
+        const res = await fetch(speciesURL);
         if (!res.ok) {
-            throw new Error('Error calling star wars species API')
-        }
+            throw new Error('Error calling species API...')
+        };
         const data = await res.json();
-        speciesData = data;
-    } catch (err) {
-        console.error(err)
-    };
-    res.send(speciesData);
+        speciesData.push(...data.results);
+        speciesURL = data.next;
+    } while (speciesURL) {
+        res.send(JSON.stringify(speciesData));
+    }
 });
 
 app.get('/api/starshipsData', cors(), async (req, res) => {
-    const starships = 'https://swapi.dev/api/starships/';
-    let starshipData;
-    try {
-        const res = await fetch(starships)
+    let starshipsURL = 'https://swapi.dev/api/starships';
+    let starshipsData = [];
+
+    do {
+        const res = await fetch(starshipsURL);
         if (!res.ok) {
-            throw new Error('Error calling star wars starships API')
-        }
+            throw new Error('Error calling starships API...')
+        };
         const data = await res.json();
-        starshipData = data;
-    } catch (err) {
-        console.error(err)
-    };
-    res.send(starshipData);
+        starshipsData.push(...data.results);
+        starshipsURL = data.next;
+    } while (starshipsURL) {
+        res.send(JSON.stringify(starshipsData));
+    }
 });
 
 app.get('/api/vehiclesData', cors(), async (req, res) => {
-    const vehicles = 'https://swapi.dev/api/vehicles/';
-    let vehicleData;
-    try {
-        const res = await fetch(vehicles)
+    let vehiclesURL = 'https://swapi.dev/api/vehicles';
+    let vehiclesData = [];
+
+    do {
+        const res = await fetch(vehiclesURL);
         if (!res.ok) {
-            throw new Error('Error calling star wars vehicles API')
-        }
+            throw new Error('Error calling vehicles API...')
+        };
         const data = await res.json();
-        // logic to sift through multiple pages and append will go here... maybe
-        vehicleData = data;
-    } catch (err) {
-        console.error(err)
-    };
-    res.send(vehicleData);
+        vehiclesData.push(...data.results);
+        vehiclesURL = data.next;
+    } while (vehiclesURL) {
+        res.send(JSON.stringify(vehiclesData));
+    }
 });
 
 app.listen(port, () => {
