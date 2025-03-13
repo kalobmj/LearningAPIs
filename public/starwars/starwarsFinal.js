@@ -83,7 +83,7 @@ const scannerTextChanger = () => {
 function getMidoChlorianCount() {
     const randomMidoChlorianCount = Math.floor(Math.random() * (16500 - 7000)) + 7000;
     console.log({randomMidoChlorianCount});
-    findCharHeader.innerText = `Your mido-chlorian test results came back... You have a mido-chlorian count of ${randomMidoChlorianCount}. Therefore you are most similar to <charNameHere>`
+    findCharHeader.innerText = `Your <span id='mido-text'>mido-chlorian</span> test results came back... You have a <span id='mido-text'>mido-chlorian</span> count of ${randomMidoChlorianCount}. Therefore you are most similar to <charNameHere>`
     mainContentContainer.classList.remove('hidden');
     findCharContainer.classList.remove('hidden');
     scanner.classList.add('hidden')

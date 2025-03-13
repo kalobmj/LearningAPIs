@@ -154,3 +154,7 @@ h1 {
     flex-direction: column;
     border: none;
 }
+
+#mido-text {
+    color: aqua;
+}
