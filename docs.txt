@@ -44,3 +44,10 @@ we are learning about apis in the way that we will use in our price project
 
 3/13
     got data into localstorage, got all data from pages too. now just need to make interface. possibly 3 options for users to get data about a random topic, people, starships etc... need to get pics for others besides people
+        gonna do a get which star wars character is most like you (picks from random people). this will provide some info about that character
+            also gonna have a gallery to link to.
+                this gallery will have the name of the image, and the image itself in a list. if clicked on displays the image in full with a name under it. with buttons to go back and foward.
+                    main page with random char button, and gallery link -> user clicks char and it generate pic and info, or clicks gallery -> gallery has all images sorted by categories. -> clicking on image will display that image.
+
+    basically done, just need to finish up grabbing character from array and match and display image. then after that work on having peron reroll again.
+        after that need to finish gallery then proj is done.

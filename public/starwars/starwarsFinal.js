@@ -4,8 +4,6 @@ const week = 604800000;
 const dataArray = ['filmsData', 'peopleData', 'planetsData', 'speciesData', 'starshipsData', 'vehiclesData'];
 const resDisplay = document.getElementById('res-display');
 
-localStorage.clear();
-
 // function to fetch data from backend
 const fetchData = async (reqData) => {
     const baseURL = 'http://localhost:4000/api/';
@@ -34,23 +32,63 @@ const checkStorage = () => {
     };
 };
 
+const findCharButton = document.getElementById('click');
+const findCharHeader = document.getElementById('click-h1');
+const mainContentContainer = document.getElementById('main-content-container');
+const findCharContainer = document.getElementById('find-char-container');
+const logo = document.getElementById('logo');
+const headerImg = document.getElementById('header-img');
+const scanner = document.getElementById('scanner');
+
+findCharButton.addEventListener('click', () => {
+    mainContentContainer.classList.add('hidden');
+    findCharContainer.classList.add('hidden');
+    headerImg.classList.add('hidden');
+
+    scanner.classList.remove('hidden');
+
+    setTimeout(() => {
+        scannerTextChanger();
+    }, 1000);
+    
+
+    setTimeout(() => {
+    getMidoChlorianCount();
+        
+    }, 5000);
+
+});
+
+// function for scannerText
+const scannerText = document.getElementById('scanner-text');
+const scannerTextChanger = () => {
+    let dots = scannerText.innerText.substring(23);
+
+    if (dots.length === 3) {
+        dots = dots.slice(0, -1);
+        scannerText.innerText = scannerText.innerText.slice(0,23) + dots;
+    } else if (dots.length === 2) {
+        dots = dots + '.';
+        scannerText.innerText = scannerText.innerText.slice(0,23) + dots;
+    };
+
+    // have dots change every 2 seconds
+    setTimeout(() => {
+       scannerTextChanger() 
+    }, 2000);
+
+};
+
+// function to display mido-chlorian count
+function getMidoChlorianCount() {
+    const randomMidoChlorianCount = Math.floor(Math.random() * (16500 - 7000)) + 7000;
+    console.log({randomMidoChlorianCount});
+    findCharHeader.innerText = `Your mido-chlorian test results came back... You have a mido-chlorian count of ${randomMidoChlorianCount}. Therefore you are most similar to <charNameHere>`
+    mainContentContainer.classList.remove('hidden');
+    findCharContainer.classList.remove('hidden');
+    scanner.classList.add('hidden')
+};
+
 // function calls
 checkStorage();
 
-setTimeout(() => {
-    let localData = [];
-    console.log('we are in setTimeout')
-    dataArray.map(dataType => {
-        if (localStorage.getItem(dataType) != null) {
-            localData.push(JSON.parse(localStorage.getItem(dataType)))
-        }
-    });
-    console.log({localData});
-    let localDataRandomNum = Math.floor(Math.random() * localData.length);
-    console.log({localDataRandomNum})
-    let ourRandomDataSet = localData[localDataRandomNum];
-    console.log({ourRandomDataSet})
-    let dataSetRandomNum = Math.floor(Math.random() * ourRandomDataSet.length)
-    resDisplay.innerText = ourRandomDataSet[dataSetRandomNum].name;
-    console.log(ourRandomDataSet[dataSetRandomNum])
-}, 10000);
