@@ -4,6 +4,9 @@ const week = 604800000;
 const dataArray = ['filmsData', 'peopleData', 'planetsData', 'speciesData', 'starshipsData', 'vehiclesData'];
 const resDisplay = document.getElementById('res-display');
 
+// this clears localStorage
+// localStorage.clear();
+
 // function to fetch data from backend
 const fetchData = async (reqData) => {
     const baseURL = 'http://localhost:4000/api/';
@@ -71,10 +74,13 @@ const galleryContainer = document.getElementById('gallery-container');
 
 const heroArray = ['films', 'people', 'planets', 'species', 'starships', 'vehicles'];
 
-const galleryPicContainer = document.getElementById('gallery-pic-container')
+const galleryPicContainer = document.getElementById('gallery-pic-container');
+
+function showSingleImg() {
+    console.log()
+}
 
 function testClick(category) {
-    console.log('clicked!')
     gallery.classList.add('hidden');
     galleryPicContainer.classList.remove('hidden')
 
@@ -86,8 +92,10 @@ function testClick(category) {
     let species = [];
     for (let i = 1; i < 84; i++) {
         people.push(i)
+        if (i === 16) {
+            i += 1
+        }
     };
-    console.log({people});
 
     for (let i = 1; i < 20; i++) {
         planets.push(i)
@@ -96,7 +104,6 @@ function testClick(category) {
             planets.push(21)
         }
     }
-    console.log({planets})
 
     for (let i = 1; i < 38; i++) {
         species.push(i)
@@ -105,65 +112,92 @@ function testClick(category) {
         }
     }
 
-    console.log({species})
-
     if (category === 'films') {
         let localImages = films.map(img => {
-            return `<img id='gallery-img' src='../../static/assets/${category}/${img}.jpg' />`
+            return `<img id='gallery-img ${img}' src='../../static/assets/${category}/${img}.jpg' />`
         });
         galleryPicContainer.innerHTML = `${localImages.join('')}`
     }
     if (category === 'starships') {
         let localImages = starships.map(img => {
-            return `<img id='gallery-img' src='../../static/assets/${category}/${img}.jpg' />`
+            return `<img id='gallery-img ${img}' src='../../static/assets/${category}/${img}.jpg' />`
         });
         galleryPicContainer.innerHTML = `${localImages.join('')}`
     }
     if (category === 'vehicles') {
         let localImages = vehicles.map(img => {
-            return `<img id='gallery-img' src='../../static/assets/${category}/${img}.jpg' />`
+            return `<img id='gallery-img ${img}' src='../../static/assets/${category}/${img}.jpg' />`
         });
         galleryPicContainer.innerHTML = `${localImages.join('')}`
     }
     if (category === 'people') {
         let localImages = people.map(img => {
-            return `<img id='gallery-img' src='../../static/assets/${category}/${img}.jpg' />`
+            return `<img id='gallery-img ${img}' src='../../static/assets/${category}/${img}.jpg' />`
         });
         galleryPicContainer.innerHTML = `${localImages.join('')}`
     }
     if (category === 'planets') {
         let localImages = planets.map(img => {
-            return `<img id='gallery-img' src='../../static/assets/${category}/${img}.jpg' />`
+            return `<img id='gallery-img ${img}' src='../../static/assets/${category}/${img}.jpg' />`
         });
         galleryPicContainer.innerHTML = `${localImages.join('')}`
     }
     if (category === 'species') {
         let localImages = species.map(img => {
-            return `<img id='gallery-img' src='../../static/assets/${category}/${img}.jpg' alt='gallery-img' />`
+            return `<img id='gallery-img ${img}' src='../../static/assets/${category}/${img}.jpg' alt='gallery-img' />`
         });
         galleryPicContainer.innerHTML = `${localImages.join('')}`
     }
 
+    goBack = 2;
+
 }
 
+// var to keep track of back btn
+let goBack = 0;
+
 galleryText.addEventListener('click', () => {
-    galleryText.innerText = 'go back';
-    galleryContainer.classList.remove('hidden');
-    gallery.classList.remove('hidden');
-    // mainContentContainer.classList.add('hidden');
-    findCharContainer.classList.add('hidden');
 
-    let heroArrayElements = heroArray.map(category => {
-        return `
-            <div id='hero-elem' onClick='testClick("${category}")'>
-                <img id='hero-img' src='../../static/assets/hero/${category}.jpg' />
-                <br>
-                <p id='hero-text'>${category}</p>
-            </div>
-        `
-    });
+    // if user presses gallery btn once
+    if (goBack === 0) {
+        galleryText.innerText = 'go back';
+        galleryContainer.classList.remove('hidden');
+        gallery.classList.remove('hidden');
+        findCharContainer.classList.add('hidden');
+    
+        let heroArrayElements = heroArray.map(category => {
+            return `
+                <div id='hero-elem' onClick='testClick("${category}")'>
+                    <img id='hero-img' src='../../static/assets/hero/${category}.jpg' />
+                    <br>
+                    <p id='hero-text'>${category}</p>
+                </div>
+            `
+        });
+    
+        gallery.innerHTML = `${heroArrayElements}`
+        goBack = 1;
+        return;
+    }
 
-    gallery.innerHTML = `${heroArrayElements}`
+    // if user pressed go back and goes back to test results
+    if (goBack === 1) {
+        galleryText.innerText = 'Gallery'
+        galleryContainer.classList.add('hidden');
+        gallery.classList.add('hidden');
+        findCharContainer.classList.remove('hidden');
+        goBack = 0;
+        return;
+    }
+
+    // user wants to go back to categories in gallery
+    if (goBack === 2) {
+
+        galleryPicContainer.classList.add('hidden');
+        gallery.classList.remove('hidden');
+        goBack = 1;
+
+    } 
 
 });
 
@@ -195,20 +229,9 @@ function getMidoChlorianCount() {
     console.log({ randomMidoChlorianCount });
 
     // fetch random character here and get name, info, and img to display.
-
     const localPeople = JSON.parse(localStorage.getItem('peopleData'));
-
-    console.log(localPeople.length)
-
-    console.log(localPeople)
-
     const randomNumber = Math.floor(Math.random() * localPeople.length)
-
-    console.log({ randomNumber })
-
     const ourRandomPerson = localPeople[randomNumber];
-
-    console.log('this should be a random person: ', ourRandomPerson)
 
     findCharHeader.innerHTML = `Your <span id='mido-text'>mido-chlorian</span> test results came back... You have a <span id='mido-text'>mido-chlorian</span> count of <span id='mido-text'>${randomMidoChlorianCount}</span>. Therefore you are most similar to... <br> <span id="char-text">${ourRandomPerson.name}</span> <br> <img id='char-img' src="../../static/assets/people/${randomNumber < 16 ? randomNumber + 1 : randomNumber + 2}.jpg" />`
 
@@ -226,17 +249,42 @@ function getMidoChlorianCount() {
 
 };
 
-// function calls
-checkStorage();
 
 const style = document.getElementById('style');
 
-// logo.style.width = '300px';
-// logo.style.height = 'auto';
+// function to finish api calls and get data, when backend server is not being used.
+async function fetchDataLocal(category) {
+    console.log('fetchDataLocal is being run...')
+    const currentCategory = category.slice(0, -4);
+    console.log({currentCategory})
+    if (localStorage.getItem(`${category}`) === null) {
+        console.log('localStorage value was found to be null')
+        try {
+            let baseURL = `https://swapi.dev/api/${currentCategory}`
+            let categoryData = [];
+            do {
+                const res = await fetch(`${baseURL}`);
+                if (!res.ok) {
+                    throw new Error(`Error calling ${currentCategory} API...`)
+                }
+                const data = await res.json()
+                baseURL = data.next;
+                categoryData.push(...data.results)
+            } while (baseURL) {
+                localStorage.setItem(`${category}`, JSON.stringify(categoryData))
+            }
+        } catch (err) {
+            console.error(err)
+        }
+    }
+};
 
-// style.append(`#logo {
-//     width: 300px;
-//     height: auto;
-//     }`)
+// function calls
+checkStorage();
 
-// style.remove('')
+// setTimeout to fetch data locally after 10 seconds if backend is not being used to fetch data.
+setTimeout(() => {
+    dataArray.map(category => {
+        fetchDataLocal(category)
+    })
+}, 10000);
