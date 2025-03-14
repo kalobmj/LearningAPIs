@@ -177,23 +177,56 @@ async function fetchRandomInfo(resource, id) {
 
 async function getRandomPersonFromPage(pageNumber) {
     try {
-        const baseURL = 'https://localhost:3000/api/people/pagenumber/'
+        console.log({pageNumber})
+        const baseURL = 'http://localhost:3000/api/page/'
+        console.log(`${baseURL}${pageNumber}`)
         const res = await fetch(`${baseURL}${pageNumber}`)
         if (!res.ok) {
             throw new Error('error calling backend...')
         }
         const data = await res.json()
-        console.log({ data })
+        console.log('this is our random page data: ', data)
+        const randomCharNum = Math.floor(Math.random() * data.results.length)
+        console.log({randomCharNum})
+        const ourRandomCharacter = data.results[randomCharNum]
+        console.log({ourRandomCharacter})
+        const ourRandomCharacterUrl = ourRandomCharacter.url
+        console.log({ourRandomCharacterUrl})
+        const ourRandomCharacterId = ourRandomCharacterUrl.substr(29).slice(0, -1);
+        console.log({ourRandomCharacterId})
+        // console.log(Number(ourRandomCharacterId) + 2)
+        console.log(`this is our randomCharacter: ${randomCharNum} from our pageNumber: ${pageNumber} passed: `, data.results[randomCharNum])
+
+        // const ourRandomCharacterImg = document.querySelector(`img[name=${ourRandomCharacterId}.jpg]`)
+
+        // console.log({ourRandomCharacterImg})
+
+        const ourImg = document.createElement('img')
+
+        // document.getElementById('res-display').appendChild(`<img src='./static/assets/img/people/${ourRandomCharacterId}.jpg' />`)
+
+        ourImg.src = `/static/assets/img/people/${ourRandomCharacterId}.jpg`
+
+        console.log({ourImg})
+        
+        document.getElementById('res-display').append(ourImg)
+
+        // return data;
     } catch (error) {
         console.error(error)
     }
 }
 
-getRandomPersonFromPage(3)
+const randomNum = Math.floor(Math.random() * 9)
+console.log({randomNum})
 
+getRandomPersonFromPage(randomNum)
+
+
+// 9 pages 82 people 8 pages and 2 people on page 9
 async function tryPersonPage() {
     try {
-        const res = await fetch('https://swapi.dev/api/people/?page=2')
+        const res = await fetch('https://swapi.dev/api/people/?page=9')
         if (!res.ok) {
             throw new Error('probem looking on page 2')
         }
@@ -207,6 +240,8 @@ async function tryPersonPage() {
 }
 
 tryPersonPage();
+
+
 
 // src="./static/assets/img/people/6.jpg"
 
