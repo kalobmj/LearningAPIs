@@ -47,6 +47,10 @@ findCharButton.addEventListener('click', () => {
 
     scanner.classList.remove('hidden');
 
+    // make star wars logo smaller
+    logo.style.width = '300px';
+    logo.style.height = 'auto';
+
     setTimeout(() => {
         scannerTextChanger();
     }, 1000);
@@ -55,7 +59,7 @@ findCharButton.addEventListener('click', () => {
     setTimeout(() => {
     getMidoChlorianCount();
         
-    }, 5000);
+    }, 6000);
 
 });
 
@@ -83,12 +87,32 @@ const scannerTextChanger = () => {
 function getMidoChlorianCount() {
     const randomMidoChlorianCount = Math.floor(Math.random() * (16500 - 7000)) + 7000;
     console.log({randomMidoChlorianCount});
-    findCharHeader.innerText = `Your <span id='mido-text'>mido-chlorian</span> test results came back... You have a <span id='mido-text'>mido-chlorian</span> count of ${randomMidoChlorianCount}. Therefore you are most similar to <charNameHere>`
+
+    // fetch random character here and get name, info, and img to display.
+
+    findCharHeader.innerHTML = `Your <span id='mido-text'>mido-chlorian</span> test results came back... You have a <span id='mido-text'>mido-chlorian</span> count of <span id='mido-text'>${randomMidoChlorianCount}</span>. Therefore you are most similar to... <charNameHere>`
+    
     mainContentContainer.classList.remove('hidden');
     findCharContainer.classList.remove('hidden');
     scanner.classList.add('hidden')
+
+    // make star wars logo slightly bigger
+    logo.style.width = '350px';
+    logo.style.height = 'auto';
+
 };
 
 // function calls
 checkStorage();
 
+const style = document.getElementById('style');
+
+// logo.style.width = '300px';
+// logo.style.height = 'auto';
+
+// style.append(`#logo {
+//     width: 300px;
+//     height: auto;
+//     }`)
+
+// style.remove('')

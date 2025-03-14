@@ -7,6 +7,11 @@
 
     box-sizing: border-box;
 
+    font-family: 'Star Wars', sans-serif;
+
+    font-weight: 100;
+                                                
+
 }
 
 html {
@@ -40,20 +45,35 @@ body {
     text-align: center;
 }
 
-#header-img {
-    height: auto;
-    width: 350px;
-}
-
 #logo {
     height: auto;
-    width: 200px;
+    min-width: 200px;
+    max-width: 400px;
+}
+
+/* #footer {
+    margin-top: 200px;
+} */
+
+#droid-img {
+    padding-top: 100px;
+    height: auto;
+    width: 800px;
+    min-width: 200px;
+}
+
+#header-img {
+    height: auto;
+    /* width: 350px; */
+    min-width: 300px;
+    max-width: 500px;
 }
 
 h1 {
     font-size: 22px;
     margin-bottom: 20px;
     margin-top: 5px;
+    color: rgba(255, 255, 0, 0.726);
 }
 
 #main-content-container {
@@ -102,6 +122,7 @@ h1 {
 #scanner-text {
     color: rgba(0, 255, 255, 0.497);
     /* margin-top: 10px; */
+    text-align: center;
 }
 
 #scanner::before {
