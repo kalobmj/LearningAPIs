@@ -47,7 +47,8 @@ body {
 
 #logo {
     height: auto;
-    min-width: 200px;
+    max-height: 200px;
+    min-width: 150px;
     max-width: 400px;
 }
 
@@ -57,16 +58,86 @@ body {
 
 #droid-img {
     padding-top: 100px;
+    padding-bottom: 30px;
     height: auto;
     width: 800px;
     min-width: 200px;
 }
 
+#char-text {
+    font-size: larger;
+}
+
+#char-img {
+    height: auto;
+    width: 80%;
+    margin-top: 30px;
+}
+
+#gallery-text {
+    display: flex;
+    justify-content: right;
+    width: 25%;
+    color: rgba(0, 208, 255, 0.485)
+}
+
+#gallery-text {
+    display: flex;
+    justify-content: space-around;
+}
+
+#gallery-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#gallery-pic-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+#gallery-img {
+    width: auto;
+    height: 150px;
+    margin: 10px;
+}
+
+#hero-text {
+    text-align: center;
+}
+
+#hero-text:hover {
+    color: rgba(0, 170, 255, 0.488);
+    text-decoration: underline;
+}
+
+#gallery {
+    height: 80%;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    /* align-items: center; */
+}
+
+#gallery img {
+    height: 100px;
+}
+
+#gallery-text:hover {
+    text-decoration: underline;
+    color: rgba(0, 255, 247, 0.549)
+}
+
 #header-img {
     height: auto;
+    /* max-height: 200px; */
     /* width: 350px; */
-    min-width: 300px;
-    max-width: 500px;
+    min-width: 250px;
+    max-width: 400px;
 }
 
 h1 {
